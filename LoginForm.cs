@@ -6,7 +6,8 @@ namespace Intergration
 
 		public LoginForm()
 		{
-			InitializeComponent();	
+			InitializeComponent();
+			this.ID.Focus();	
 		}
 
 		protected override void Dispose(bool disposing)
@@ -120,7 +121,7 @@ namespace Intergration
 			this.ClientSize = new System.Drawing.Size(350, 350);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {this.RoundedButton, this.ID, this.Password, this.LoginLabel});
 			this.Name = "Login";
-			this.Icon = new System.Drawing.Icon(@".\images\tetris.ico");
+			this.Icon = new System.Drawing.Icon(@".\images\login.ico");
 			this.BackColor = System.Drawing.Color.Beige;
 			this.FormClosing += (sender, e) => {
 				System.Windows.Forms.Application.Exit();

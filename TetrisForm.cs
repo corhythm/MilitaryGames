@@ -840,8 +840,7 @@ namespace Intergration
 			this.MenuStrip.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
-			this.Controls.AddRange(new System.Windows.Forms.Control[]{this.ScoreNum, this.BestScore, this.LabelNextBlock, this.HoldBlock, this.LTime, this.MenuStrip, this.RoundedButton});
-			//git test
+			this.Controls.AddRange(new System.Windows.Forms.Control[]{this.ScoreNum, this.BestScore, this.LabelNextBlock, this.HoldBlock, this.LTime, this.MenuStrip, this.RoundedButton});			
 
 		}
 

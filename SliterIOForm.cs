@@ -516,7 +516,7 @@ namespace Intergration
 			this.CenterToScreen();
 			this.DoubleBuffered = true;
 			this.AutoScroll = true;
-			this.Icon = new System.Drawing.Icon(@"C:\Users\a\Roaming\°­Æ²´ß\.ico files\Chuzzle Deluxe.ico");
+			this.Icon = new System.Drawing.Icon(@"./images\slitherio.ico");
 			this.TopMost = false;
 			this.HelpButton = true;
 			this.ShowIcon = true;
