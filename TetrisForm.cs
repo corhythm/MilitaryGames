@@ -9,7 +9,7 @@ namespace Intergration
 		private System.Int32 SmashedLineCount = 0;		
 		public System.String NewRankerID {get; set;}
 		public System.String NewRankerEmail {get; set;}	
-		public System.Int32 RankingCount = -1;	
+		public System.Int32 RankingCount = -1;			
 		
 		public TetrisForm()
 		{
@@ -85,8 +85,7 @@ namespace Intergration
 		}
 
 		private void DrawTabel(System.Drawing.Graphics graphics) // 26행 15열 테트리스 배경 그리기
-		{
-			
+		{			
 			for(System.Int32 i = 0; i < this.Block.TableWidth; i++)
 			{
 				for(System.Int32 j = 0; j < this.Block.TableHeight; j++)
@@ -98,8 +97,7 @@ namespace Intergration
 						DrawBlock(graphics, Block.GameBoardColor[i, j], i, j); 
 					}
 				}
-			}
-			
+			}			
 		}
 
 		private void DrawBlock(System.Drawing.Graphics graphics)
@@ -109,8 +107,7 @@ namespace Intergration
 				for(System.Int32 i = 0; i < 4; i++) // 현재 떨어지고 있는 블록 그리기.
 				{	
 					DrawBlock(graphics, Block.RandomColorList[0], Block.X + Block.NextBlockList[0][Block.NowBlockShape, 0, i], Block.Y + Block.NextBlockList[0][Block.NowBlockShape, 1, i]); // 현재 떨어지고 있는 블록 그리기
-					DrawBlock(graphics, System.Drawing.Color.FromArgb(230, Block.RandomColorList[0]), Block.X + Block.NextBlockList[0][Block.NowBlockShape, 0, i], PreviewBlock() + Block.NextBlockList[0][Block.NowBlockShape, 1, i]);
-					System.Console.WriteLine(Block.RandomColorList[0]);
+					DrawBlock(graphics, System.Drawing.Color.FromArgb(230, Block.RandomColorList[0]), Block.X + Block.NextBlockList[0][Block.NowBlockShape, 0, i], PreviewBlock() + Block.NextBlockList[0][Block.NowBlockShape, 1, i]);					
 				}
 			}
 			else
@@ -120,8 +117,7 @@ namespace Intergration
 					DrawBlock(graphics, System.Drawing.Color.Khaki, Block.X + Block.NextBlockList[0][Block.NowBlockShape, 0, i], Block.Y + Block.NextBlockList[0][Block.NowBlockShape, 1, i]); // 현재 떨어지고 있는 블록 그리기
 					DrawBlock(graphics, System.Drawing.Color.FromArgb(230, System.Drawing.Color.Khaki), Block.X + Block.NextBlockList[0][Block.NowBlockShape, 0, i], PreviewBlock() + Block.NextBlockList[0][Block.NowBlockShape, 1, i]);
 				}
-			}
-			
+			}			
 		}
 
 		private void DrawNextBlock(System.Drawing.Graphics graphics)
@@ -173,29 +169,40 @@ namespace Intergration
 			
 			return y;
 		}
-
 		
 		private void timer_Tick(object sender, System.EventArgs e)
-		{
-			this.Span = new System.TimeSpan(System.DateTime.Now.Ticks - HoldEndTime.Ticks);	
-			this.LTime.Text = Span.ToString("hh\\:mm\\:ss");
-			
+		{			
+			this.Span = new System.TimeSpan(-(this.HoldEndTime.Ticks - System.DateTime.Now.Ticks));			
+			this.LTime.Text = Span.ToString(@"hh\:mm\:ss");					
 		}
 
 		private void TetrisForm_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
 		{
-			if(Gaming)
+			if(Gaming)    
 			{
 				switch(e.KeyCode)
 				{
 					case System.Windows.Forms.Keys.P:	
 						if(!this.Pause)
 						{
-							this.Pause = true;										
+							this.Pause = true;
+							if(!this.HoldOK)
+							{
+								this.PauseCount = System.DateTime.Now;
+								this.timer.Stop();								
+							}
+								
+
 						}
 						else
 						{
-							this.Pause = false;
+							this.Pause = false;						
+							if(!this.HoldOK)
+							{	
+								this.HoldEndTime += new System.TimeSpan(System.DateTime.Now.Ticks - this.PauseCount.Ticks);														
+								this.timer.Start();								
+							}
+								
 							this.EWH.Set();													
 						}
 						break; 	
@@ -203,9 +210,9 @@ namespace Intergration
 					case System.Windows.Forms.Keys.H:
 						if(!this.Pause)
 						{
-							if(this.HoldOK)
-							{
-								if(!Block.IsSaved) // 저장이 안 돼 있을 때
+							if(this.HoldOK) // block이 저장 가능할 때
+							{							
+								if(!Block.IsSaved) 
 								{
 									Block.HoldedBlock[0] = Block.NextBlockList[0];
 									Block.HoldedBlockColor = Block.RandomColorList[0];
@@ -213,7 +220,7 @@ namespace Intergration
 									Block.IsHoldPossible = false;
 									Block.IsSaved = true;
 								}
-								else // 저장 돼 있을 때.
+								else // block 홀드 기능 쿨 타임
 								{					
 									Block.X = 6;
 									Block.Y = Block.NowBlockShape = 0;
@@ -221,14 +228,13 @@ namespace Intergration
 									Block.RandomColorList[0] = Block.HoldedBlockColor;
 									Block.HoldedBlock[0] = null;
 									Block.IsSaved = false;
-									timer.Enabled = true;
+									this.timer.Enabled = true;
 									this.HoldEndTime = System.DateTime.Now;
 									this.HoldBlock.Text  = "Not Yet... Wait";
 									this.HoldBlock.ForeColor = System.Drawing.Color.Red;
-									this.HoldOK = false;
-								
+									this.HoldOK = false;							
 								}
-							}
+							}							
 						}
 						break;	
 
@@ -305,8 +311,7 @@ namespace Intergration
 										CheckBlock();
 										goto IsGameOver;
 									}
-								}
-							
+								}							
 								Block.Y++;	
 							}
 						}
@@ -408,8 +413,7 @@ namespace Intergration
 				}											
 			}
 			catch(System.Exception e) 
-			{	
-				//System.Console.WriteLine(e.Message); // 이게 공백을 출력함....
+			{					
 				this.CreateGraphics().DrawString(e.Message, new System.Drawing.Font("AR CARTER", 250), new System.Drawing.SolidBrush(System.Drawing.Color.Black), 50, 100); 
 			}
 		}	
@@ -558,8 +562,7 @@ namespace Intergration
 			this.LabelNextBlock = new System.Windows.Forms.Label();
 			this.HoldBlock = new System.Windows.Forms.Label();
 			this.ScoreNum = new System.Windows.Forms.Label();
-			this.LTime = new System.Windows.Forms.Label();
-			this.BestScore = new System.Windows.Forms.Label();
+			this.LTime = new System.Windows.Forms.Label();			
 			this.timer = new System.Windows.Forms.Timer();
 			this.MenuStrip = new System.Windows.Forms.MenuStrip();
 			this.파일MenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -585,10 +588,10 @@ namespace Intergration
 			// 
 			// LabelNextBlock
 			//
-			this.LabelNextBlock.Text = "Next Block";
+			this.LabelNextBlock.Text = "Next Block";			
 			this.LabelNextBlock.AutoSize = true;
-			this.LabelNextBlock.Location = new System.Drawing.Point(575, 30);
-			this.LabelNextBlock.Font = new System.Drawing.Font("AR DELANEY", 20);
+			this.LabelNextBlock.Location = new System.Drawing.Point(580, 30);
+			this.LabelNextBlock.Font = new System.Drawing.Font("Bradley Hand ITC", 20);
 			this.LabelNextBlock.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// HoldBlock
@@ -597,40 +600,26 @@ namespace Intergration
 			this.HoldBlock.AutoSize = true;
 			//this.HoldBlock.Size = new System.Drawing.Size(10, 10);
 			this.HoldBlock.Location = new System.Drawing.Point(10, 90);
-			this.HoldBlock.Font = new System.Drawing.Font("AR CHRISTY", 18);
+			this.HoldBlock.Font = new System.Drawing.Font("AGENCY FB", 16);
 			this.HoldBlock.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 	
 			// ScoreNum
 			//
 			this.ScoreNum.Text = Score.ToString("D10");
 			this.ScoreNum.AutoSize = true;
-			this.ScoreNum.Font = new System.Drawing.Font("AR HERMANN", 30);
+			this.ScoreNum.Font = new System.Drawing.Font("Bradley Hand ITC", 30);
 			this.ScoreNum.Location = new System.Drawing.Point(270, 660);
 			this.ScoreNum.TextAlign = System.Drawing.ContentAlignment.MiddleCenter; 
 			//
 			// LTime
 			//
-			this.LTime.Font = new System.Drawing.Font("AR DESTINE", 14);
+			this.LTime.Font = new System.Drawing.Font("Bradley Hand ITC", 14);
 			this.LTime.Text = "00:00:00";
 			this.LTime.BackColor = System.Drawing.Color.Black;
 			this.LTime.ForeColor = System.Drawing.Color.White;
 			this.LTime.Size = new System.Drawing.Size(150, 40);
 			this.LTime.Location = new System.Drawing.Point(10, 40);
-			this.LTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			//
-			// BestScore
-			//
-			this.BestScore.ForeColor = System.Drawing.Color.Red;
-			this.BestScore.Font = new System.Drawing.Font("AR HERMANN", 13);
-			this.BestScore.Location = new System.Drawing.Point(0, 600);
-			this.BestScore.Size = new System.Drawing.Size(170, 100);
-			this.BestScore.TextAlign = System.Drawing.ContentAlignment.MiddleCenter; 
-			this.BestScore.BackColor = this.BackColor;
-			using (System.IO.StreamReader SR = new System.IO.StreamReader(new System.IO.FileStream(@".\images\tempRanking.txt", System.IO.FileMode.Open), System.Text.Encoding.UTF8))
-			{	
-				string[] BestScoreString = SR.ReadLine().Split(new System.Char[] {' '});
-				this.BestScore.Text = string.Format("Pause : Press P\nHold : Press H\nBest Score\n{0}" ,BestScoreString[2]);
-			}
+			this.LTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;			
 			// 
 			// timer & HoldEndTime
 			//
@@ -658,12 +647,16 @@ namespace Intergration
 					{
 						this.EWH.WaitOne();
 					}
-				
+				//this.Span = new System.TimeSpan(-(this.HoldEndTime.Ticks - System.DateTime.Now.Ticks));			
+				//this.LTime.Text = Span.ToString(@"hh\:mm\:ss");		
 					if(this.Span.ToString("hh\\:mm\\:ss") == "00:00:10")
 					{
+						this.LTime.Text = "00:00:00";											
 						this.HoldBlock.Text  = "Hold Block\n(Press H)";
 						this.HoldBlock.ForeColor = System.Drawing.Color.Black;
 						this.HoldOK = true;
+						this.timer.Enabled = false;
+						this.Span = new System.TimeSpan(0);
 					}
 				}	
 			}));
@@ -815,7 +808,8 @@ namespace Intergration
 			// TetrisForm
 			//
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-			this.Text = "테트리스";
+			this.Text = "Tetris";
+			this.Font = new System.Drawing.Font("Bradlery Hand ITC", 10);
 			this.Size = new System.Drawing.Size(800, 770); // 창 크기 조절.
 			this.CenterToScreen();
 			this.DoubleBuffered = true;
@@ -840,7 +834,8 @@ namespace Intergration
 			this.MenuStrip.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
-			this.Controls.AddRange(new System.Windows.Forms.Control[]{this.ScoreNum, this.BestScore, this.LabelNextBlock, this.HoldBlock, this.LTime, this.MenuStrip, this.RoundedButton});			
+			this.Controls.AddRange(new System.Windows.Forms.Control[]{this.ScoreNum, 
+				this.LabelNextBlock, this.HoldBlock, this.LTime, this.MenuStrip, this.RoundedButton});			
 
 		}
 
@@ -854,9 +849,9 @@ namespace Intergration
 		private System.Boolean HoldOK;
 		private System.Windows.Forms.Label ScoreNum;
 		private System.Windows.Forms.Label LabelNextBlock;
-		private System.Windows.Forms.Label HoldBlock;
-		private System.Windows.Forms.Label BestScore;
+		private System.Windows.Forms.Label HoldBlock;		
 		private System.Windows.Forms.Label LTime;
+		private System.DateTime PauseCount;
 		private System.DateTime HoldEndTime;
 		private System.Windows.Forms.Timer timer;
 		private System.TimeSpan Span;

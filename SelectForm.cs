@@ -61,7 +61,7 @@ namespace Intergration
 			this.LauchingButton.Size = new System.Drawing.Size(280, 70);
 			this.LauchingButton.Location = new System.Drawing.Point(30, 230);
 			this.LauchingButton.Click += (sender, e) => {
-				System.Windows.Forms.MessageBox.Show("?? ?? ?!!",
+				System.Windows.Forms.MessageBox.Show("No Match",
 					  "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Question);
 			};
 			//
@@ -96,7 +96,7 @@ namespace Intergration
 			this.ClientSize = new System.Drawing.Size(350, 400);
 			this.Name = "SelectForm";
 			this.Text = "½É½ÉÇ®ÀÌ ¶¥Äá";
-			this.Icon = new System.Drawing.Icon(@".\images\tetris.ico");
+			this.Icon = new System.Drawing.Icon(@".\images\peanut.ico");
 			this.Controls.AddRange(new System.Windows.Forms.Control[]{this.TetrisButton, this.SlitherIOButton, this.LauchingButton, this.RankingButton, this.ExitButton});
 			this.FormClosing += (sender, e) => { 
 				//this.Close();
