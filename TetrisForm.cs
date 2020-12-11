@@ -62,7 +62,7 @@ namespace Intergration
 
 			if(this.Pause)
 			{ 
-				e.Graphics.DrawString("Pause", new System.Drawing.Font("AR CARTER", 250), new System.Drawing.SolidBrush(System.Drawing.Color.Black), 50, 100); 
+				e.Graphics.DrawString("Pause", new System.Drawing.Font("BAUHAUS 93", 150), new System.Drawing.SolidBrush(System.Drawing.Color.Black), 50, 150); 
 			}
 		}
 

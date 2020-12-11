@@ -135,7 +135,7 @@ namespace Intergration
 		
 		private void RoundedButton_Click(System.Object sender, System.EventArgs e)
 		{
-			if((this.ID.Text == "Ελ½Ε!!!" || this.ID.Text == "xhdtls!!!")&& this.Password.Text == "1q2w3e4r!")
+			if((this.ID.Text == "1" || this.ID.Text == "xhdtls!!!")&& this.Password.Text == "1")
 			{	
 				//System.Threading.ThreadPool.QueueUserWorkItem(Invoke, null);
 				new System.Threading.Thread(() => { new SelectForm().ShowDialog(); }).Start();
