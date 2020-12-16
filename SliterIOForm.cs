@@ -409,8 +409,10 @@ namespace Intergration
 
 			if(!Gaming) // 게임 종료되면
 			{
-				if(System.Windows.Forms.DialogResult.Yes == System.Windows.Forms.MessageBox.Show("Do you want restart?", "Game Over!",  System.Windows.Forms.MessageBoxButtons.YesNo)) 
+				if(System.Windows.Forms.DialogResult.Yes == System.Windows.Forms.MessageBox.Show(new System.Windows.Forms.Form() { WindowState = System.Windows.Forms.FormWindowState.Maximized, TopMost = true }, 
+					"Do you want restart?", "Game Over!",  System.Windows.Forms.MessageBoxButtons.YesNo)) 
 				{	
+					this.TopMost = true;
 					LScoreNum.Text = 0.ToString();
 					Score = 0;
 					Speed = 300;
@@ -430,8 +432,9 @@ namespace Intergration
 				{	
 					new System.Threading.Thread(() => { new SelectForm().ShowDialog(); }).Start();
 					//System.Windows.Forms.Application.Exit();
-					this.Dispose();
+					this.Close();
 					this.MoveThread.Abort();
+					return;
 				}
 			}
 		} 
