@@ -67,7 +67,7 @@ namespace Intergration
 			//
 			// RankingButton
 			//
-			this.RankingButton.Font = new System.Drawing.Font("AR ESSENCE", 17);
+			this.RankingButton.Font = new System.Drawing.Font("Bradlery Hand ITC", 10);
 			this.RankingButton.Text = "Show Ranking";
 			this.RankingButton.BackColor = System.Drawing.Color.Coral;
 			this.RankingButton.Size = new System.Drawing.Size(160, 40);
@@ -95,7 +95,7 @@ namespace Intergration
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(350, 400);
 			this.Name = "SelectForm";
-			this.Text = "½É½ÉÇ®ÀÌ ¶¥Äá";
+			this.Text = "Peanuts";
 			this.Icon = new System.Drawing.Icon(@".\images\peanut.ico");
 			this.Controls.AddRange(new System.Windows.Forms.Control[]{this.TetrisButton, this.SlitherIOButton, this.LauchingButton, this.RankingButton, this.ExitButton});
 			this.FormClosing += (sender, e) => { 

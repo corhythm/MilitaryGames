@@ -8,8 +8,7 @@ namespace Intergration
 		private SelectForm selectForm;
 		private System.Int32 SmashedLineCount = 0;		
 		public System.String NewRankerID {get; set;}
-		public System.String NewRankerEmail {get; set;}	
-		public System.Int32 RankingCount = -1;			
+		public System.String NewRankerEmail {get; set;}				
 		
 		public TetrisForm()
 		{
@@ -356,35 +355,57 @@ namespace Intergration
 		}
 	
 		private void CheckRanking()
-		{
-			System.String[] ReadFileString = System.IO.File.ReadAllLines(@"C:\Windows\Microsoft.NET\Framework\v4.0.30319\knar.txt");
-			System.String[] ReadFileMicroString;
+		{	
+			System.String[] ReadFileMicroString;			
+			System.Collections.Generic.List<string> ReadAllRankingLineList = new System.Collections.Generic.List<string>();
+			System.Collections.Generic.List<string> RankingIDList;
+			System.Collections.Generic.List<int> RankingScoreList;
+			System.Collections.Generic.List<string> RankingEmailList;
+			var lineCount = 0;
+			int newRankingInsertPos = 0; // 랭킹 삽입될 위치 찾는 포인터
+			string RLine;	
 
-			System.Collections.Generic.List<System.String> RankingIDList = new System.Collections.Generic.List<System.String>();
-			System.Collections.Generic.List<System.Int32> RankingScoreList = new System.Collections.Generic.List<System.Int32>();
-			System.Collections.Generic.List<System.String> RankingEmailList = new System.Collections.Generic.List<System.String>();
+			if(!System.IO.File.Exists(@"C:\Program Files\ginknar.txt")) // Ranking 파일 없으면 생성
+			{											
+				System.IO.FileStream stream = System.IO.File.Create(@"C:\Program Files\ginknar.txt");
+				stream.Close();
+			}
+						
+			using (var reader = System.IO.File.OpenText(@"C:\Program Files\ginknar.txt")) // 랭킹 몇 개 저장되어 있는지 count(Hign Score -> Log Score)
+			{
+				while ( (RLine = reader.ReadLine())!= null)
+				{
+					ReadAllRankingLineList.Add(RLine);
+					lineCount++;
+				}
+			}			
+			System.Console.WriteLine("lineCount = " + lineCount);						
+			
+			RankingIDList = new System.Collections.Generic.List<System.String>(); // ID List 
+			RankingScoreList = new System.Collections.Generic.List<System.Int32>(); // Score List 
+			RankingEmailList = new System.Collections.Generic.List<System.String>(); // Email List
 
 			try
 			{
-				for(System.Int32 i = 0; i < 20; i++) // Ranking ID Score Email // 이미 등록된 랭킹 불러오기.
+				for(System.Int32 i = 0; i < lineCount; i++) // Ranking ID Score Email, 최대 20개까지 등록된 랭킹 불러오기(High -> Low)
 				{
-					ReadFileMicroString = ReadFileString[i].Split(new System.Char[] {' '});
+					ReadFileMicroString = ReadAllRankingLineList[i].Split(new System.Char[] {' '}); // 상위 스코어 라인 1개씩 저장
+					RankingIDList.Add(ReadFileMicroString[1]); // ID
+					RankingScoreList.Add(System.Int32.Parse(ReadFileMicroString[2])); // Score
+					RankingEmailList.Add(ReadFileMicroString[3]); // Email
+					
+					if(RankingScoreList[i] > this.Score)
+						newRankingInsertPos++;
+				}				
+			}
+			catch (System.Exception ex) { System.Console.WriteLine(ex.Message); }
 
-					RankingIDList.Add(ReadFileMicroString[1]);
-					RankingScoreList.Add(System.Int32.Parse(ReadFileMicroString[2]));
-					RankingEmailList.Add(ReadFileMicroString[3]);
-				}
-
-				for(System.Int32 i = RankingScoreList.Count - 1; i >= 0; i--)
-				{
-					if(RankingScoreList[i] < this.Score)
-						this.RankingCount = i;
-				}
-
-				if(this.RankingCount > -1) // 여기서 스페이스바를 비활성화할 필요가 있음.
-				{
+			try
+			{
+				if(newRankingInsertPos > 0) // 득점한 Score가 랭킹 안에 들었으면
+				{	// 여기서 스페이스바를 비활성화할 필요가 있음.
 					if(System.Windows.Forms.DialogResult.Yes == System.Windows.Forms.MessageBox.Show("순위권 안에 점수가 있습니다. 점수를 기록하시겠습니까??",
-						 "Great Score!", System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Question))
+						"Great Score!", System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Question))
 					{
 						this.InputRankingForm = new InputRankingForm(this);
 						this.InputRankingForm.Owner  = this;
@@ -392,15 +413,16 @@ namespace Intergration
 						this.InputRankingForm.ShowDialog();			
 						
 						if(this.NewRankerID == "" || this.NewRankerEmail == "")
-							return;
+							return;					
 
-						using (System.IO.StreamWriter SW = new System.IO.StreamWriter(new System.IO.FileStream(@"C:\Windows\Microsoft.NET\Framework\v4.0.30319\knar.txt", System.IO.FileMode.Create), System.Text.Encoding.UTF8))
+						using (System.IO.StreamWriter SW = new System.IO.StreamWriter(
+							new System.IO.FileStream(@"C:\Program Files\ginknar.txt", System.IO.FileMode.Create), System.Text.Encoding.UTF8))
 						{	
 							System.String RankingOneLine;
 																				
-							for(System.Int32 i = 0; i < RankingScoreList.Count; i++)
+							for(System.Int32 i = 0; i < RankingScoreList.Count; i++) // 새로운 랭킹 포함해서 랭킹 다시 write
 							{
-								if(i == this.RankingCount)
+								if(i == newRankingInsertPos)
 									RankingOneLine = (i + 1).ToString() + " "+ this.NewRankerID.ToString() + " " + this.Score.ToString() + " " + this.NewRankerEmail.ToString();						
 								else
 									RankingOneLine = (i + 1).ToString() + " " + RankingIDList[i] + " " + RankingScoreList[i].ToString() + " " + RankingEmailList[i];								
@@ -412,10 +434,7 @@ namespace Intergration
 					else return;	
 				}											
 			}
-			catch(System.Exception e) 
-			{					
-				this.CreateGraphics().DrawString(e.Message, new System.Drawing.Font("AR CARTER", 250), new System.Drawing.SolidBrush(System.Drawing.Color.Black), 50, 100); 
-			}
+			catch(System.Exception e) { System.Console.WriteLine(e.Message); }
 		}	
 		
 		private void DieaseUpdateEventMethod(System.Object sender1, System.Object sender2)

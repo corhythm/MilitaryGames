@@ -147,7 +147,7 @@ namespace Intergration
 			this.ClientSize = new System.Drawing.Size(615, 600);
 			this.TopMost = true;
 			this.AutoScroll = true;
-			this.Icon = new System.Drawing.Icon(@"C:\Users\a\Roaming\강틀닭\.ico files\Chuzzle Deluxe.ico");
+			this.Icon = new System.Drawing.Icon(@".\images\peanut.ico");
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {this.ListView, this.MenuStrip});
 			this.Font = new System.Drawing.Font("AR CHRISTY", 12F);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -218,7 +218,19 @@ namespace Intergration
 		
 		private void ReadRanking()
 		{
-			using(System.IO.StreamReader SR = new System.IO.StreamReader(new System.IO.FileStream(@"C:\Windows\Microsoft.NET\Framework\v4.0.30319\knar.txt", System.IO.FileMode.Open), System.Text.Encoding.Default))
+			if(!System.IO.File.Exists(@"C:\Program Files\ginknar.txt"))
+			{											
+				System.IO.FileStream stream = System.IO.File.Create(@"C:\Program Files\ginknar.txt");
+				stream.Close();							
+
+				System.Windows.Forms.MessageBox.Show("랭킹 기록이 없습니다",
+					"Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Question);
+
+				return;
+			}
+
+			using(System.IO.StreamReader SR = new System.IO.StreamReader(
+				new System.IO.FileStream(@"C:\Program Files\ginknar.txt", System.IO.FileMode.Open), System.Text.Encoding.Default))
 			{
 				try
 				{
@@ -266,8 +278,6 @@ namespace Intergration
 		{
 
 		}
-
-
 			
 		private System.Windows.Forms.ListView ListView;
 		private System.Windows.Forms.ColumnHeader RankHeader;
