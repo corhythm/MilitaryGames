@@ -144,7 +144,7 @@ namespace Intergration
 			this.Name = "RankingForm";	
 			this.Text = "Ranking";
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-			this.ClientSize = new System.Drawing.Size(615, 600);
+			this.ClientSize = new System.Drawing.Size(615, 535);
 			this.TopMost = true;
 			this.AutoScroll = true;
 			this.Icon = new System.Drawing.Icon(@".\images\peanut.ico");
@@ -218,15 +218,31 @@ namespace Intergration
 		
 		private void ReadRanking()
 		{
+			var lineCount = 0;
+
 			if(!System.IO.File.Exists(@"C:\Program Files\ginknar.txt"))
 			{											
 				System.IO.FileStream stream = System.IO.File.Create(@"C:\Program Files\ginknar.txt");
 				stream.Close();							
 
-				System.Windows.Forms.MessageBox.Show("랭킹 기록이 없습니다",
+				System.Windows.Forms.MessageBox.Show("등록된 랭킹 기록이 없습니다",
 					"Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Question);
 
 				return;
+			}
+
+			using (var reader = System.IO.File.OpenText(@"C:\Program Files\ginknar.txt")) // 랭킹 몇 개 저장되어 있는지 count(Hign Score -> Log Score)
+			{
+				while (reader.ReadLine()!= null)
+				{					
+					lineCount++;
+				}
+			}	
+
+			if(lineCount == 0)
+			{
+				System.Windows.Forms.MessageBox.Show("등록된 랭킹 기록이 없습니다",
+					"Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Question);
 			}
 
 			using(System.IO.StreamReader SR = new System.IO.StreamReader(
@@ -234,7 +250,7 @@ namespace Intergration
 			{
 				try
 				{
-					for(System.Int32 i = 0; i < 20; i++)
+					for(System.Int32 i = 0; i < lineCount; i++)
 					{				
 						//ReadMicroString = this.ReadString[i].Split(new System.Char[] {' '});		
 						ReadMicroString = SR.ReadLine().Split(new System.Char[] {' '});
@@ -250,34 +266,8 @@ namespace Intergration
 				{	
 					System.Console.WriteLine("Error");
 				}
-			}
-			
-			/*try
-			{
-				for(System.Int32 i = 0; i < 20; i++)
-				{
-				
-					ReadMicroString = this.ReadString[i].Split(new System.Char[] {' '});		
-					this.ListView.Items.Add(new System.Windows.Forms.ListViewItem(new System.String[] {
-					ReadMicroString[0],
-					ReadMicroString[1],
-					ReadMicroString[2],
-					ReadMicroString[3]}));
-				}
-	
-			}
-			catch(System.Exception) 
-			{	
-				System.Console.WriteLine("Error");
-			}*/
-
-			
-		}
-
-		private void WriteRanking()
-		{
-
-		}
+			}								
+		}		
 			
 		private System.Windows.Forms.ListView ListView;
 		private System.Windows.Forms.ColumnHeader RankHeader;
