@@ -327,13 +327,15 @@ namespace Intergration
 							
 							Gaming = false;
 							CheckRanking(); // 랭킹 체크하고
-							if(System.Windows.Forms.DialogResult.Yes == System.Windows.Forms.MessageBox.Show("계속 하시겠습니까?", "Game Over!", System.Windows.Forms.MessageBoxButtons.YesNo))
+							if(System.Windows.Forms.DialogResult.Yes == System.Windows.Forms.MessageBox.Show(
+								new System.Windows.Forms.Form() { WindowState = System.Windows.Forms.FormWindowState.Maximized, TopMost = true }, 
+								"계속 하시겠습니까?", "Game Over!", System.Windows.Forms.MessageBoxButtons.YesNo))
 							{																													
 								new System.Threading.Thread(() => { new TetrisForm().ShowDialog(); }).Start();
 								this.Close();
 								MainThread.Abort();	 // 이렇게 해도 되나 모르겠다...
 								break;								
-							}
+							}							
 							else // 아니오
 							{							
 								new System.Threading.Thread(() => { new SelectForm().ShowDialog(); }).Start();
@@ -358,9 +360,9 @@ namespace Intergration
 		{	
 			System.String[] ReadFileMicroString;			
 			System.Collections.Generic.List<string> ReadAllRankingLineList = new System.Collections.Generic.List<string>();
-			System.Collections.Generic.List<string> RankingIDList;
-			System.Collections.Generic.List<int> RankingScoreList;
-			System.Collections.Generic.List<string> RankingEmailList;
+			System.Collections.Generic.LinkedList<string> RankingIDList;
+			System.Collections.Generic.LinkedList<int> RankingScoreList;
+			System.Collections.Generic.LinkedList<string> RankingEmailList;
 			var lineCount = 0;
 			int newRankingInsertPos = 0; // 랭킹 삽입될 위치 찾는 포인터
 			string RLine;	
@@ -381,31 +383,31 @@ namespace Intergration
 			}			
 			System.Console.WriteLine("lineCount = " + lineCount);						
 			
-			RankingIDList = new System.Collections.Generic.List<System.String>(); // ID List 
-			RankingScoreList = new System.Collections.Generic.List<System.Int32>(); // Score List 
-			RankingEmailList = new System.Collections.Generic.List<System.String>(); // Email List
+			RankingIDList = new System.Collections.Generic.LinkedList<System.String>(); // ID List 
+			RankingScoreList = new System.Collections.Generic.LinkedList<System.Int32>(); // Score List
+			RankingEmailList = new System.Collections.Generic.LinkedList<System.String>(); // Email List
 
 			try
 			{
 				for(System.Int32 i = 0; i < lineCount; i++) // Ranking ID Score Email, 최대 20개까지 등록된 랭킹 불러오기(High -> Low)
 				{
 					ReadFileMicroString = ReadAllRankingLineList[i].Split(new System.Char[] {' '}); // 상위 스코어 라인 1개씩 저장
-					RankingIDList.Add(ReadFileMicroString[1]); // ID
-					RankingScoreList.Add(System.Int32.Parse(ReadFileMicroString[2])); // Score
-					RankingEmailList.Add(ReadFileMicroString[3]); // Email
+					RankingIDList.AddLast(ReadFileMicroString[1]); // ID
+					RankingScoreList.AddLast(System.Int32.Parse(ReadFileMicroString[2])); // Score
+					RankingEmailList.AddLast(ReadFileMicroString[3]); // Email					
 					
-					if(RankingScoreList[i] > this.Score)
+					if(RankingScoreList.Last.Value > this.Score)
 						newRankingInsertPos++;
-				}				
+				}								
 			}
 			catch (System.Exception ex) { System.Console.WriteLine(ex.Message); }
-
+			System.Console.WriteLine("newRankingInsertPos = " + newRankingInsertPos);
 			try
 			{
-				if(newRankingInsertPos > 0) // 득점한 Score가 랭킹 안에 들었으면
+				if(newRankingInsertPos < 20) // 득점한 Score가 랭킹 안에 들었으면
 				{	// 여기서 스페이스바를 비활성화할 필요가 있음.
-					if(System.Windows.Forms.DialogResult.Yes == System.Windows.Forms.MessageBox.Show("순위권 안에 점수가 있습니다. 점수를 기록하시겠습니까??",
-						"Great Score!", System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Question))
+					if(System.Windows.Forms.DialogResult.Yes == System.Windows.Forms.MessageBox.Show(new System.Windows.Forms.Form() { WindowState = System.Windows.Forms.FormWindowState.Maximized, TopMost = true },
+						"순위권 안에 점수가 있습니다. 점수를 기록하시겠습니까??", "Great Score!", System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Question))
 					{
 						this.InputRankingForm = new InputRankingForm(this);
 						this.InputRankingForm.Owner  = this;
@@ -413,23 +415,52 @@ namespace Intergration
 						this.InputRankingForm.ShowDialog();			
 						
 						if(this.NewRankerID == "" || this.NewRankerEmail == "")
-							return;					
+							return;
+
+						System.Collections.Generic.LinkedListNode<string> NodeID = RankingIDList.First;
+						System.Collections.Generic.LinkedListNode<int> NodeScore = RankingScoreList.First;
+						System.Collections.Generic.LinkedListNode<string> NodeEmail = RankingEmailList.First;
+
+						for(int i = 0; i < newRankingInsertPos; i++) 
+						{
+							System.Console.WriteLine(NodeID.Value + " " + NodeScore.Value + " " + NodeEmail.Value);
+							NodeID = NodeID.Next;
+							NodeScore = NodeScore.Next;
+							NodeEmail = NodeEmail.Next;							
+						}					
+						
+						RankingIDList.AddBefore(NodeID, this.NewRankerID);
+						RankingScoreList.AddBefore(NodeScore, this.Score);
+						RankingEmailList.AddBefore(NodeEmail, this.NewRankerEmail);
+
+						RankingIDList.RemoveLast();
+						RankingScoreList.RemoveLast();
+						RankingEmailList.RemoveLast();
+
+						NodeID = RankingIDList.First;
+						NodeScore = RankingScoreList.First;
+						NodeEmail = RankingEmailList.First;
 
 						using (System.IO.StreamWriter SW = new System.IO.StreamWriter(
 							new System.IO.FileStream(@"C:\Program Files\ginknar.txt", System.IO.FileMode.Create), System.Text.Encoding.UTF8))
 						{	
-							System.String RankingOneLine;
-																				
-							for(System.Int32 i = 0; i < RankingScoreList.Count; i++) // 새로운 랭킹 포함해서 랭킹 다시 write
-							{
-								if(i == newRankingInsertPos)
-									RankingOneLine = (i + 1).ToString() + " "+ this.NewRankerID.ToString() + " " + this.Score.ToString() + " " + this.NewRankerEmail.ToString();						
-								else
-									RankingOneLine = (i + 1).ToString() + " " + RankingIDList[i] + " " + RankingScoreList[i].ToString() + " " + RankingEmailList[i];								
+							System.String RankingOneLine;														
 							
+							for(int i = 0; i< RankingIDList.Count; i++)
+							{
+								RankingOneLine = (i + 1).ToString() + " " + NodeID.Value + " " + NodeScore.Value + " " + NodeEmail.Value;
+
+								NodeID = NodeID.Next;
+								NodeScore = NodeScore.Next;
+								NodeEmail = NodeEmail.Next;
+
 								SW.WriteLine(RankingOneLine);
-							}
+							}							
 						}
+						
+						RankingForm ShowMyRanking = new RankingForm(); // 입력된 랭킹 순위 출력
+						ShowMyRanking.Owner  = this;						
+						ShowMyRanking.ShowDialog();	
 					}
 					else return;	
 				}											
@@ -833,10 +864,10 @@ namespace Intergration
 			this.CenterToScreen();
 			this.DoubleBuffered = true;
 			this.Icon = new System.Drawing.Icon(@".\images\tetris.ico");
-			this.AutoScroll = true;
-			this.TopMost = false;
+			this.AutoScroll = true;			
 			this.HelpButton = true;
 			this.ShowIcon = true;
+			this.TopMost = true;
 			this.ShowInTaskbar = true;
 			//this.AutoSizeMode = System.Windows.Forms.GrowAndShrink;
 			this.ShowInTaskbar = true;
