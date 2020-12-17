@@ -73,7 +73,7 @@ namespace Intergration
 			//System.Console.WriteLine();
 		}
 
-		private void 랭킹MenuItem_Click(object sender, System.EventArgs e)
+		private void RankingMenuItem_Click(object sender, System.EventArgs e)
 		{
 			
 		}
@@ -634,21 +634,21 @@ namespace Intergration
 			this.LTime = new System.Windows.Forms.Label();			
 			this.timer = new System.Windows.Forms.Timer();
 			this.MenuStrip = new System.Windows.Forms.MenuStrip();
-			this.파일MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.새로만들기MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.폴더MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.바로가기MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.비트맵MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.열기MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.저장MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.다른이름으로저장MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.인쇄MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.보기MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.자세히MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.랭킹MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.작게MenuItem = new System.Windows.Forms.ToolStripMenuItem(); 
-			this.리스트MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.타일MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.FileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.NewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.FolderMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.ShortcutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.BitmapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.OpenMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.SaveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.AnotherNameSaveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.PrintMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.ShowMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.DetailMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.RankingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.SmallMenuItem = new System.Windows.Forms.ToolStripMenuItem(); 
+			this.ListMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.TileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.EWH = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.AutoReset);
 			this.Pause = false;
 			this.RoundedButton = new Button_WOC();
@@ -734,121 +734,121 @@ namespace Intergration
 			//
 			// MenuStrip
 			//
-			this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripMenuItem[] {this.파일MenuItem, this.보기MenuItem});
+			this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripMenuItem[] {this.FileMenuItem, this.ShowMenuItem});
 			this.MenuStrip.Location = new System.Drawing.Point(0, 0);
 			this.MenuStrip.Name = "MenuStrip";
 			this.MenuStrip.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
 			this.MenuStrip.Size = new System.Drawing.Size(784, 24);
 			this.MenuStrip.TabIndex = 1;
 			//
-			// 파일MenuItem
+			// FileMenuItem
 			//
-			this.파일MenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripMenuItem[]{
-				this.새로만들기MenuItem,
-				this.열기MenuItem,
-				this.저장MenuItem,
-				this.다른이름으로저장MenuItem,
-				this.인쇄MenuItem});
-			this.파일MenuItem.Name = "파일";
-			this.파일MenuItem.Size = new System.Drawing.Size(60, 20);
-			this.파일MenuItem.Text = "파일(&F)";
+			this.FileMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripMenuItem[]{
+				this.NewMenuItem,
+				this.OpenMenuItem,
+				this.SaveMenuItem,
+				this.AnotherNameSaveMenuItem,
+				this.PrintMenuItem});
+			this.FileMenuItem.Name = "파일";
+			this.FileMenuItem.Size = new System.Drawing.Size(60, 20);
+			this.FileMenuItem.Text = "파일(&F)";
 			//
-			// 새로만들기MenuItem
+			// NewMenuItem
 			//
-			this.새로만들기MenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripMenuItem[]{
-				this.폴더MenuItem,
-				this.바로가기MenuItem,
-				this.비트맵MenuItem});
-			this.새로만들기MenuItem.Name = "새로 만들기";
-			this.새로만들기MenuItem.Size = new System.Drawing.Size(60, 20);
-			this.새로만들기MenuItem.Text = "새로 만들기(&N)";
+			this.NewMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripMenuItem[]{
+				this.FolderMenuItem,
+				this.ShortcutMenuItem,
+				this.BitmapMenuItem});
+			this.NewMenuItem.Name = "새로 만들기";
+			this.NewMenuItem.Size = new System.Drawing.Size(60, 20);
+			this.NewMenuItem.Text = "새로 만들기(&N)";
 			//
-			// 폴더MenuItem
+			// FolderMenuItem
 			//
-			this.폴더MenuItem.Name = "폴더";
-			this.폴더MenuItem.Size = new System.Drawing.Size(60, 20);
-			this.폴더MenuItem.Text = "폴더(&F)";
+			this.FolderMenuItem.Name = "폴더";
+			this.FolderMenuItem.Size = new System.Drawing.Size(60, 20);
+			this.FolderMenuItem.Text = "폴더(&F)";
 			//
-			// 바로가기MenuItem
+			// ShortcutMenuItem
 			//
-			this.바로가기MenuItem.Name = "바로가기";
-			this.바로가기MenuItem.Size = new System.Drawing.Size(60, 20);
-			this.바로가기MenuItem.Text = "바로가기(&S)";
+			this.ShortcutMenuItem.Name = "바로가기";
+			this.ShortcutMenuItem.Size = new System.Drawing.Size(60, 20);
+			this.ShortcutMenuItem.Text = "바로가기(&S)";
 			//
-			// 비트맵MenuItem
+			// BitmapMenuItem
 			//
-			this.비트맵MenuItem.Name = "비트맵";
-			this.비트맵MenuItem.Size = new System.Drawing.Size(60, 20);
-			this.비트맵MenuItem.Text = "비트맵(&B)";
+			this.BitmapMenuItem.Name = "비트맵";
+			this.BitmapMenuItem.Size = new System.Drawing.Size(60, 20);
+			this.BitmapMenuItem.Text = "비트맵(&B)";
 			//
-			// 열기MenuItem
+			// OpenMenuItem
 			//
-			this.열기MenuItem.Name = "열기";
-			this.열기MenuItem.Size = new System.Drawing.Size(60, 20);
-			this.열기MenuItem.Text = "열기(&O)";
+			this.OpenMenuItem.Name = "열기";
+			this.OpenMenuItem.Size = new System.Drawing.Size(60, 20);
+			this.OpenMenuItem.Text = "열기(&O)";
 			//
-			// 저장MenuItem
+			// SaveMenuItem
 			//
-			this.저장MenuItem.Name = "저장";
-			this.저장MenuItem.Size = new System.Drawing.Size(60, 20);
-			this.저장MenuItem.Text = "저장(&S)";
+			this.SaveMenuItem.Name = "저장";
+			this.SaveMenuItem.Size = new System.Drawing.Size(60, 20);
+			this.SaveMenuItem.Text = "저장(&S)";
 			//
-			// 다른이름으로저장MenuItem
+			// AnotherNameSaveMenuItem
 			//
-			this.다른이름으로저장MenuItem.Name = "다른 이름으로 저장";
-			this.다른이름으로저장MenuItem.Size = new System.Drawing.Size(60, 20);
-			this.다른이름으로저장MenuItem.Text = "저장(&A)";
+			this.AnotherNameSaveMenuItem.Name = "다른 이름으로 저장";
+			this.AnotherNameSaveMenuItem.Size = new System.Drawing.Size(60, 20);
+			this.AnotherNameSaveMenuItem.Text = "저장(&A)";
 			//
-			// 인쇄MenuItem
+			// PrintMenuItem
 			//
-			this.인쇄MenuItem.Name = "인쇄";
-			this.인쇄MenuItem.Size = new System.Drawing.Size(60, 20);
-			this.인쇄MenuItem.Text = "인쇄(&P)";
+			this.PrintMenuItem.Name = "인쇄";
+			this.PrintMenuItem.Size = new System.Drawing.Size(60, 20);
+			this.PrintMenuItem.Text = "인쇄(&P)";
 			//
-			// 보기MenuItem
+			// ShowMenuItem
 			//
-			this.보기MenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripMenuItem[] {
-				this.자세히MenuItem,
-				this.랭킹MenuItem,
-				this.작게MenuItem,
-				this.리스트MenuItem,
-				this.타일MenuItem});
-			this.보기MenuItem.Name = "보기MenuItem";
-			this.보기MenuItem.Size = new System.Drawing.Size(60, 20);
-			this.보기MenuItem.Text = "보기(&V)";
+			this.ShowMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripMenuItem[] {
+				this.DetailMenuItem,
+				this.RankingMenuItem,
+				this.SmallMenuItem,
+				this.ListMenuItem,
+				this.TileMenuItem});
+			this.ShowMenuItem.Name = "ShowMenuItem";
+			this.ShowMenuItem.Size = new System.Drawing.Size(60, 20);
+			this.ShowMenuItem.Text = "보기(&V)";
 			//
-			// 자세히MenuItem
+			// DetailMenuItem
 			//
-			this.자세히MenuItem.Checked = true;
-			this.자세히MenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.자세히MenuItem.Name = "자세히MenuItem";
-			this.자세히MenuItem.Size = new System.Drawing.Size(60, 20);
-			this.자세히MenuItem.Text = "자세히(&D)";
+			this.DetailMenuItem.Checked = true;
+			this.DetailMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.DetailMenuItem.Name = "DetailMenuItem";
+			this.DetailMenuItem.Size = new System.Drawing.Size(60, 20);
+			this.DetailMenuItem.Text = "자세히(&D)";
 			//
-			// 랭킹MenuItem
+			// RankingMenuItem
 			//
-			this.랭킹MenuItem.Name = "랭킹MenuItem";
-			this.랭킹MenuItem.Size = new System.Drawing.Size(60, 20);
-			this.랭킹MenuItem.Text = "랭킹(&R)";
-			this.랭킹MenuItem.Click += new System.EventHandler(this.랭킹MenuItem_Click);
+			this.RankingMenuItem.Name = "RankingMenuItem";
+			this.RankingMenuItem.Size = new System.Drawing.Size(60, 20);
+			this.RankingMenuItem.Text = "랭킹(&R)";
+			this.RankingMenuItem.Click += new System.EventHandler(this.RankingMenuItem_Click);
 			//
-			// 리스트MenuItem
+			// ListMenuItem
 			//	
-			this.리스트MenuItem.Name = "리스트MenuItem";
-			this.리스트MenuItem.Size = new System.Drawing.Size(60, 20);
-			this.리스트MenuItem.Text = "목록(&L)";
+			this.ListMenuItem.Name = "ListMenuItem";
+			this.ListMenuItem.Size = new System.Drawing.Size(60, 20);
+			this.ListMenuItem.Text = "목록(&L)";
 			//
-			// 작게MenuItem
+			// SmallMenuItem
 			//
-			this.작게MenuItem.Name = "작게MenuItem";
-			this.작게MenuItem.Size = new System.Drawing.Size(60, 20);
-			this.작게MenuItem.Text = "작은 아이콘(&S)";
+			this.SmallMenuItem.Name = "SmallMenuItem";
+			this.SmallMenuItem.Size = new System.Drawing.Size(60, 20);
+			this.SmallMenuItem.Text = "작은 아이콘(&S)";
 			//	
-			// 타일MenuItem
+			// TileMenuItem
 			//
-			this.타일MenuItem.Name = "타일MenuItem";
-			this.타일MenuItem.Size = new System.Drawing.Size(60, 20);
-			this.타일MenuItem.Text = "타일(&T)";
+			this.TileMenuItem.Name = "TileMenuItem";
+			this.TileMenuItem.Size = new System.Drawing.Size(60, 20);
+			this.TileMenuItem.Text = "타일(&T)";
 			//
 			// RoundedButton
 			// 
@@ -925,21 +925,21 @@ namespace Intergration
 		private System.Windows.Forms.Timer timer;
 		private System.TimeSpan Span;
 		private System.Windows.Forms.MenuStrip MenuStrip;
-		private System.Windows.Forms.ToolStripMenuItem 파일MenuItem;
-		private System.Windows.Forms.ToolStripMenuItem 새로만들기MenuItem;
-		private System.Windows.Forms.ToolStripMenuItem 폴더MenuItem;
-		private System.Windows.Forms.ToolStripMenuItem 바로가기MenuItem;
-		private System.Windows.Forms.ToolStripMenuItem 비트맵MenuItem;
-		private System.Windows.Forms.ToolStripMenuItem 열기MenuItem;
-		private System.Windows.Forms.ToolStripMenuItem 저장MenuItem;
-		private System.Windows.Forms.ToolStripMenuItem 다른이름으로저장MenuItem;
-		private System.Windows.Forms.ToolStripMenuItem 인쇄MenuItem;
-		private System.Windows.Forms.ToolStripMenuItem 보기MenuItem;
-		private System.Windows.Forms.ToolStripMenuItem 자세히MenuItem;
-		private System.Windows.Forms.ToolStripMenuItem 랭킹MenuItem;
-		private System.Windows.Forms.ToolStripMenuItem 리스트MenuItem;
-		private System.Windows.Forms.ToolStripMenuItem 작게MenuItem;
-		private System.Windows.Forms.ToolStripMenuItem 타일MenuItem;
+		private System.Windows.Forms.ToolStripMenuItem FileMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem NewMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem FolderMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem ShortcutMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem BitmapMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem OpenMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem SaveMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem AnotherNameSaveMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem PrintMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem ShowMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem DetailMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem RankingMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem ListMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem SmallMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem TileMenuItem;
 		private System.Threading.EventWaitHandle EWH;
 		private Button_WOC RoundedButton;
 		
