@@ -315,6 +315,9 @@ namespace Intergration
 							}
 						}
 						break;
+					
+					default:
+						break;
 				}
 
 				IsGameOver:
@@ -423,7 +426,7 @@ namespace Intergration
 
 						for(int i = 0; i < newRankingInsertPos; i++) 
 						{
-							System.Console.WriteLine(NodeID.Value + " " + NodeScore.Value + " " + NodeEmail.Value);
+							//System.Console.WriteLine(NodeID.Value + " " + NodeScore.Value + " " + NodeEmail.Value);
 							NodeID = NodeID.Next;
 							NodeScore = NodeScore.Next;
 							NodeEmail = NodeEmail.Next;							
@@ -461,8 +464,7 @@ namespace Intergration
 						RankingForm ShowMyRanking = new RankingForm(); // 입력된 랭킹 순위 출력
 						ShowMyRanking.Owner  = this;						
 						ShowMyRanking.ShowDialog();	
-					}
-					else return;	
+					}						
 				}											
 			}
 			catch(System.Exception e) { System.Console.WriteLine(e.Message); }

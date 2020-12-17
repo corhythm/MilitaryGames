@@ -151,9 +151,8 @@ namespace Intergration
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {this.ListView, this.MenuStrip});
 			this.Font = new System.Drawing.Font("AR CHRISTY", 12F);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-			this.FormClosing += (sender, e) => {
-				//this.SelectForm.ShowDialog();
-				//this.Dispose();
+			this.FormClosing += (sender, e) => {				
+				this.Dispose();
 			};
 			this.MainMenuStrip = this.MenuStrip;
 			this.MenuStrip.ResumeLayout(false);
