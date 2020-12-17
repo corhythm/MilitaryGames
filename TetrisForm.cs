@@ -9,7 +9,7 @@ namespace Intergration
 		private System.Int32 SmashedLineCount = 0;		
 		public System.String NewRankerID {get; set;}
 		public System.String NewRankerEmail {get; set;}				
-		
+				
 		public TetrisForm()
 		{
 			InitializeComponent();	
@@ -171,7 +171,7 @@ namespace Intergration
 		
 		private void timer_Tick(object sender, System.EventArgs e)
 		{			
-			this.Span = new System.TimeSpan(-(this.HoldEndTime.Ticks - System.DateTime.Now.Ticks));			
+			this.Span = new System.TimeSpan((this.HoldEndTime.Ticks - System.DateTime.Now.Ticks));			
 			this.LTime.Text = Span.ToString(@"hh\:mm\:ss");					
 		}
 
@@ -189,9 +189,7 @@ namespace Intergration
 							{
 								this.PauseCount = System.DateTime.Now;
 								this.timer.Stop();								
-							}
-								
-
+							}								
 						}
 						else
 						{
@@ -200,8 +198,7 @@ namespace Intergration
 							{	
 								this.HoldEndTime += new System.TimeSpan(System.DateTime.Now.Ticks - this.PauseCount.Ticks);														
 								this.timer.Start();								
-							}
-								
+							}								
 							this.EWH.Set();													
 						}
 						break; 	
@@ -228,7 +225,7 @@ namespace Intergration
 									Block.HoldedBlock[0] = null;
 									Block.IsSaved = false;
 									this.timer.Enabled = true;
-									this.HoldEndTime = System.DateTime.Now;
+									this.HoldEndTime = (System.DateTime.Now).AddSeconds(11);
 									this.HoldBlock.Text  = "Not Yet... Wait";
 									this.HoldBlock.ForeColor = System.Drawing.Color.Red;
 									this.HoldOK = false;							
@@ -298,7 +295,7 @@ namespace Intergration
 						}
 						break;
 
-					case System.Windows.Forms.Keys.Space:
+					case System.Windows.Forms.Keys.Space:						
 						if(!this.Pause)
 						{
 							while(true)
@@ -327,12 +324,11 @@ namespace Intergration
 					if(Block.GameBoard[6 + Block.NextBlockList[0][Block.NowBlockShape, 0, i], Block.NextBlockList[0][Block.NowBlockShape, 1, i]]) // + 6를 하는 이유는 블록이 가운데서 나오니까
 					{
 						// 여기에 spacebar를 비활성화하면 될 듯...
-							
+						
 						Gaming = false;
 						CheckRanking(); // 랭킹 체크하고
 						if(System.Windows.Forms.DialogResult.Yes == System.Windows.Forms.MessageBox.Show(
-							new System.Windows.Forms.Form() { WindowState = System.Windows.Forms.FormWindowState.Maximized, TopMost = true }, 
-							"계속 하시겠습니까?", "Game Over!", System.Windows.Forms.MessageBoxButtons.YesNo))
+							this, "계속 하시겠습니까?", "Game Over!", System.Windows.Forms.MessageBoxButtons.YesNo))
 						{																													
 							new System.Threading.Thread(() => { new TetrisForm().ShowDialog(); }).Start();
 							this.Close();
@@ -427,7 +423,9 @@ namespace Intergration
 			{			
 				if(newRankingInsertPos < MaxRankingListNum/*= 20*/) // 득점한 Score가 랭킹 안에 들었으면
 				{	// 여기서 스페이스바를 비활성화할 필요가 있음.
-					if(System.Windows.Forms.DialogResult.Yes == System.Windows.Forms.MessageBox.Show(new System.Windows.Forms.Form() { WindowState = System.Windows.Forms.FormWindowState.Maximized, TopMost = true },
+					if(System.Windows.Forms.DialogResult.Yes == System.Windows.Forms.MessageBox.Show(new System.Windows.Forms.Form() { 
+							WindowState = System.Windows.Forms.FormWindowState.Maximized, TopMost = true,
+							},
 						"순위권 안에 점수가 있습니다. 점수를 기록하시겠습니까??", "Great Score!", System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Question))
 					{
 						this.InputRankingForm = new InputRankingForm(this);
@@ -718,7 +716,7 @@ namespace Intergration
 					}
 				//this.Span = new System.TimeSpan(-(this.HoldEndTime.Ticks - System.DateTime.Now.Ticks));			
 				//this.LTime.Text = Span.ToString(@"hh\:mm\:ss");		
-					if(this.Span.ToString("hh\\:mm\\:ss") == "00:00:10")
+					if(this.Span.ToString("hh\\:mm\\:ss") == "00:00:01")
 					{
 						this.LTime.Text = "00:00:00";											
 						this.HoldBlock.Text  = "Hold Block\n(Press H)";
