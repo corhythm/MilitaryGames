@@ -220,10 +220,7 @@ namespace Intergration
 			var lineCount = 0;
 
 			if(!System.IO.File.Exists(@"C:\Program Files\ginknar.txt"))
-			{											
-				System.IO.FileStream stream = System.IO.File.Create(@"C:\Program Files\ginknar.txt");
-				stream.Close();							
-
+			{																					
 				System.Windows.Forms.MessageBox.Show("등록된 랭킹 기록이 없습니다",
 					"Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Question);
 
@@ -233,9 +230,7 @@ namespace Intergration
 			using (var reader = System.IO.File.OpenText(@"C:\Program Files\ginknar.txt")) // 랭킹 몇 개 저장되어 있는지 count(Hign Score -> Log Score)
 			{
 				while (reader.ReadLine()!= null)
-				{					
-					lineCount++;
-				}
+					{ lineCount++; }
 			}	
 
 			if(lineCount == 0)

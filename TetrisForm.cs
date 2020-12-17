@@ -315,41 +315,41 @@ namespace Intergration
 							}
 						}
 						break;
-					
+
 					default:
 						break;
 				}
 
-				IsGameOver:
+				IsGameOver:				
 					
-					for(System.Int32 i = 0; i < 4; i++)
+				for(System.Int32 i = 0; i < 4; i++)
+				{
+					if(Block.GameBoard[6 + Block.NextBlockList[0][Block.NowBlockShape, 0, i], Block.NextBlockList[0][Block.NowBlockShape, 1, i]]) // + 6를 하는 이유는 블록이 가운데서 나오니까
 					{
-						if(Block.GameBoard[6 + Block.NextBlockList[0][Block.NowBlockShape, 0, i], Block.NextBlockList[0][Block.NowBlockShape, 1, i]]) // + 6를 하는 이유는 블록이 가운데서 나오니까
-						{
-							// 여기에 spacebar를 비활성화하면 될 듯...
+						// 여기에 spacebar를 비활성화하면 될 듯...
 							
-							Gaming = false;
-							CheckRanking(); // 랭킹 체크하고
-							if(System.Windows.Forms.DialogResult.Yes == System.Windows.Forms.MessageBox.Show(
-								new System.Windows.Forms.Form() { WindowState = System.Windows.Forms.FormWindowState.Maximized, TopMost = true }, 
-								"계속 하시겠습니까?", "Game Over!", System.Windows.Forms.MessageBoxButtons.YesNo))
-							{																													
-								new System.Threading.Thread(() => { new TetrisForm().ShowDialog(); }).Start();
-								this.Close();
-								MainThread.Abort();	 // 이렇게 해도 되나 모르겠다...
-								break;								
-							}							
-							else // 아니오
-							{							
-								new System.Threading.Thread(() => { new SelectForm().ShowDialog(); }).Start();
-								this.Close();
-								MainThread.Abort();
-								break;
-							}
+						Gaming = false;
+						CheckRanking(); // 랭킹 체크하고
+						if(System.Windows.Forms.DialogResult.Yes == System.Windows.Forms.MessageBox.Show(
+							new System.Windows.Forms.Form() { WindowState = System.Windows.Forms.FormWindowState.Maximized, TopMost = true }, 
+							"계속 하시겠습니까?", "Game Over!", System.Windows.Forms.MessageBoxButtons.YesNo))
+						{																													
+							new System.Threading.Thread(() => { new TetrisForm().ShowDialog(); }).Start();
+							this.Close();
+							MainThread.Abort();	 // 이렇게 해도 되나 모르겠다...
+							break;								
+						}							
+						else // 아니오
+						{							
+							new System.Threading.Thread(() => { new SelectForm().ShowDialog(); }).Start();
+							this.Close();
+							MainThread.Abort();
+							break;
 						}
-					}	
+					}
+				}	
 		
-					this.Invalidate();
+				this.Invalidate();
 			}
 				
 		}	
@@ -366,24 +366,41 @@ namespace Intergration
 			System.Collections.Generic.LinkedList<string> RankingIDList;
 			System.Collections.Generic.LinkedList<int> RankingScoreList;
 			System.Collections.Generic.LinkedList<string> RankingEmailList;
-			var lineCount = 0;
+			int lineCount = 0;
 			int newRankingInsertPos = 0; // 랭킹 삽입될 위치 찾는 포인터
-			string RLine;	
+			int MaxRankingListNum = 20;
+			string RLine;				
 
-			if(!System.IO.File.Exists(@"C:\Program Files\ginknar.txt")) // Ranking 파일 없으면 생성
-			{											
-				System.IO.FileStream stream = System.IO.File.Create(@"C:\Program Files\ginknar.txt");
-				stream.Close();
-			}
-						
-			using (var reader = System.IO.File.OpenText(@"C:\Program Files\ginknar.txt")) // 랭킹 몇 개 저장되어 있는지 count(Hign Score -> Log Score)
+			try
 			{
-				while ( (RLine = reader.ReadLine())!= null)
+				using (var reader = System.IO.File.OpenText(@"C:\Program Files\ginknar.txt")) // 랭킹 몇 개 저장되어 있는지 count(Hign Score -> Log Score)
 				{
-					ReadAllRankingLineList.Add(RLine);
-					lineCount++;
-				}
-			}			
+					while ( (RLine = reader.ReadLine())!= null)
+					{
+						ReadAllRankingLineList.Add(RLine);
+						lineCount++;
+					}
+				}			
+			}
+			catch (System.Exception ex) // 만약 파일이 없으면
+			{									
+				string OneLine; // 파일에 입력할 일회용 String, 입력 수가 많지 않고 변동적이지 않아서 String 사용, 만약 변동적이라면 StringBuilder 사용할 것!
+
+				System.Console.WriteLine("In System.FileNotFoundException: " + ex.Message);				
+				lineCount = MaxRankingListNum; // line 개수 Full로 Set			
+				using (System.IO.StreamWriter SW = new System.IO.StreamWriter(
+							new System.IO.FileStream(@"C:\Program Files\ginknar.txt", System.IO.FileMode.Create), System.Text.Encoding.UTF8))
+				{
+					ReadAllRankingLineList.Clear();
+					for(int i = 0; i < MaxRankingListNum; i++)
+					{	
+						OneLine = (i + 1) + " " + "***" + " " + 0 + " " + "***";
+						SW.WriteLine(OneLine); 
+						ReadAllRankingLineList.Add(OneLine);
+					}		
+				}				
+			}
+			
 			System.Console.WriteLine("lineCount = " + lineCount);						
 			
 			RankingIDList = new System.Collections.Generic.LinkedList<System.String>(); // ID List 
@@ -391,7 +408,7 @@ namespace Intergration
 			RankingEmailList = new System.Collections.Generic.LinkedList<System.String>(); // Email List
 
 			try
-			{
+			{				
 				for(System.Int32 i = 0; i < lineCount; i++) // Ranking ID Score Email, 최대 20개까지 등록된 랭킹 불러오기(High -> Low)
 				{
 					ReadFileMicroString = ReadAllRankingLineList[i].Split(new System.Char[] {' '}); // 상위 스코어 라인 1개씩 저장
@@ -403,11 +420,12 @@ namespace Intergration
 						newRankingInsertPos++;
 				}								
 			}
-			catch (System.Exception ex) { System.Console.WriteLine(ex.Message); }
+			catch (System.Exception ex) { System.Console.WriteLine("Second Exception: " + ex.Message); }
 			System.Console.WriteLine("newRankingInsertPos = " + newRankingInsertPos);
+			
 			try
-			{
-				if(newRankingInsertPos < 20) // 득점한 Score가 랭킹 안에 들었으면
+			{			
+				if(newRankingInsertPos < MaxRankingListNum/*= 20*/) // 득점한 Score가 랭킹 안에 들었으면
 				{	// 여기서 스페이스바를 비활성화할 필요가 있음.
 					if(System.Windows.Forms.DialogResult.Yes == System.Windows.Forms.MessageBox.Show(new System.Windows.Forms.Form() { WindowState = System.Windows.Forms.FormWindowState.Maximized, TopMost = true },
 						"순위권 안에 점수가 있습니다. 점수를 기록하시겠습니까??", "Great Score!", System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Question))
@@ -425,8 +443,7 @@ namespace Intergration
 						System.Collections.Generic.LinkedListNode<string> NodeEmail = RankingEmailList.First;
 
 						for(int i = 0; i < newRankingInsertPos; i++) 
-						{
-							//System.Console.WriteLine(NodeID.Value + " " + NodeScore.Value + " " + NodeEmail.Value);
+						{							
 							NodeID = NodeID.Next;
 							NodeScore = NodeScore.Next;
 							NodeEmail = NodeEmail.Next;							
@@ -467,7 +484,7 @@ namespace Intergration
 					}						
 				}											
 			}
-			catch(System.Exception e) { System.Console.WriteLine(e.Message); }
+			catch(System.Exception e) { System.Console.WriteLine("Third Exception: " + e.Message); }
 		}	
 		
 		private void DieaseUpdateEventMethod(System.Object sender1, System.Object sender2)
