@@ -446,11 +446,9 @@ namespace Intergration
 		} 
 	
 		private void InitializeComponent()
-		{
-			
+		{			
 			this.LFeed = new System.Windows.Forms.Label();
-			this.LScoreNum = new System.Windows.Forms.Label();
-			this.BackArrow = new System.Windows.Forms.Button();
+			this.LScoreNum = new System.Windows.Forms.Label();			
 			MoveThread = new System.Threading.Thread(MoveUser);
 			this.Pause = false;
 			this.EWH = new System.Threading.EventWaitHandle(false, System.Threading.EventResetMode.AutoReset);
@@ -496,20 +494,7 @@ namespace Intergration
 			LScoreNum.Font = new System.Drawing.Font("AR HERMANN", 30);
 			LScoreNum.Location = new System.Drawing.Point(1420, 690);
 			//LScoreNum.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			//LScoreNum.BackColor = System.Drawing.Color.Coral;
-			//
-			// BackArrow
-			//
-			this.BackArrow.Text = "ก็";
-			this.BackArrow.Size = new System.Drawing.Size(100, 40);
-			this.BackArrow.Location = new System.Drawing.Point(1450, 50);
-			this.BackArrow.BackColor = System.Drawing.Color.Coral;
-			this.BackArrow.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.BackArrow.Font = new System.Drawing.Font("AR DELANEY", 30);
-			this.BackArrow.Click += (sender, e) => {
-			
-			};
-			this.BackArrow.Enabled = false;
+			//LScoreNum.BackColor = System.Drawing.Color.Coral;			
 			//
 			// SlitherIOForm
 			//
@@ -545,15 +530,14 @@ namespace Intergration
 				this.MoveThread.Abort();			
 				System.Windows.Forms.Application.Exit();
 			});
-			this.Controls.AddRange(new System.Windows.Forms.Control[] {this.LFeed, this.LScoreNum, this.BackArrow});
+			this.Controls.AddRange(new System.Windows.Forms.Control[] {this.LFeed, this.LScoreNum});
 			this.FormClosing += (sender, e) => { };
 
 			
 		}
 		
 		private System.Windows.Forms.Label LFeed;
-		private System.Windows.Forms.Label LScoreNum;
-		private System.Windows.Forms.Button BackArrow;
+		private System.Windows.Forms.Label LScoreNum;		
 
 	
 
