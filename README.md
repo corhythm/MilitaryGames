@@ -29,8 +29,9 @@ C# WPF로 만들고 싶었지만, 내가 근무하던 당시엔 Win 7이었고, 
 [저장된 기록 보여주기]
 ![show_ranking](https://user-images.githubusercontent.com/43941383/102474464-06514f80-409c-11eb-94d7-bdd44f6f36de.png)
 
-[랭킹 입력 완료 후, 다시 플레이 할 건지 물는다]
+[랭킹 입력 완료 후, 다시 플레이 할 건지 묻고, 아니오를 클릭하면 SelectForm으로 되돌아간다.]
 ![message](https://user-images.githubusercontent.com/43941383/102476362-5b8e6080-409e-11eb-918e-bad9902228d9.png)
 
-[지렁이 키우기]
+[지렁이 키우기: 파란색 블록를 먹으면 지렁이의 몸집이 커지고, 빨간색 블록을 먹거나 벽에 부딪히면 게임이 끝난다. 색깔이 알록달록한 블록은 
+  점프게이트로서 점프게이트에 들어가면 랜덤으로 아무 점프게이트로 나온다. 어느 점프게이트로 나올지는 Random.Next(점프게이트 개수)를 사용했다]
 ![slitherio](https://user-images.githubusercontent.com/43941383/102476638-ab6d2780-409e-11eb-8961-2c93b249ef87.png)
