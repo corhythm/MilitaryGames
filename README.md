@@ -35,7 +35,7 @@ C# WPF로 만들고 싶었지만, 내가 근무하던 당시엔 Win 7이었고, 
 
 
 <h4>저장된 기록 보여주기: 군대에라 DB가 없어서 메모장 파일을 DB처럼 이용했다</h4>
-<img src="https://user-images.githubusercontent.com/43941383/102474464-06514f80-409c-11eb-94d7-bdd44f6f36de.png" width="50%" height="50%">
+<img src="https://user-images.githubusercontent.com/43941383/102474464-06514f80-409c-11eb-94d7-bdd44f6f36de.png" width="70%" height="100%">
 
 
 <h4>랭킹 입력 완료 후, 다시 플레이 할 건지 묻고, 아니오를 클릭하면 SelectForm으로 되돌아간다</h4>
