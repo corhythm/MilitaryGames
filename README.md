@@ -6,7 +6,7 @@ C# WPF로 만들고 싶었지만, 내가 근무하던 당시엔 Win 7이었고, 
 
 
 <h4>최초 실행 시, 로그인 페이지</h4>
-<img src="https://user-images.githubusercontent.com/43941383/102473706-1ddc0880-409b-11eb-9359-7c7e062c10d1.PNG">
+<img src="https://user-images.githubusercontent.com/43941383/102473706-1ddc0880-409b-11eb-9359-7c7e062c10d1.PNG" width="50%" height="60%">
 
 
 <h4>로그인에 성공하면 게임을 선택할 할 수 있는 SeletForm(테트리스, 지렁이 키우기, 랭킹보기 (NotYet은 아직 개발 중)</h4>
