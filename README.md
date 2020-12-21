@@ -5,7 +5,7 @@ https://youtu.be/OSXEX-z0xTs
 ~~C# WPF로 만들고 싶었지만, 내가 근무하던 당시엔 Win 7이었고, GUI 사용하려면 WinForm만 사용가능 했다는...ㅜㅜ~~
 
 
-##최초 실행 시, 로그인 페이지
+## 최초 실행 시, 로그인 페이지
 <img src="https://user-images.githubusercontent.com/43941383/102473706-1ddc0880-409b-11eb-9359-7c7e062c10d1.PNG" width="30%" height="60%">
 
 
