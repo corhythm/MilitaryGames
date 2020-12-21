@@ -21,8 +21,7 @@ https://youtu.be/OSXEX-z0xTs
 <img src="https://user-images.githubusercontent.com/43941383/102474009-76130a80-409b-11eb-8bc5-8acf699b2120.png" width="30%" height="60%">
 
 
-## 블록 저장 기능, H 버튼을 누르면 현재 떨어지고 있는 블록이 좌측 상단에 저장되고 저장된 블록은 H 버튼을 다시 누르면 사용할 수 있다. 블록 저장 기능은 계속 사용하면
-  게임의 밸런스를 해칠 수 있을 거 같아, 재사용까지 10초의 제한을 두었다
+## 블록 저장 기능, H 버튼을 누르면 현재 떨어지고 있는 블록이 좌측 상단에 저장되고 저장된 블록은 H 버튼을 다시 누르면 사용할 수 있다. 블록 저장 기능은 계속 사용하면 게임의 밸런스를 해칠 수 있을 거 같아, 재사용까지 10초의 제한을 두었다
 <img src="https://user-images.githubusercontent.com/43941383/102474088-8f1bbb80-409b-11eb-9ea2-ea8b4cfac1bd.png" width="30%" height="60%">
 
 
