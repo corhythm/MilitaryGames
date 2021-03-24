@@ -13,6 +13,7 @@
 
 
 ## 테트리스 플레이 화면
+![2](https://user-images.githubusercontent.com/43941383/112282205-3c6d2380-8cca-11eb-9edb-d890316609ee.gif)
 <img src="https://user-images.githubusercontent.com/43941383/102473925-5da2f000-409b-11eb-8f1b-91e4a97a9919.png" width="30%" height="60%">
 
 
